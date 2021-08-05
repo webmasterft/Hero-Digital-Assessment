@@ -1,7 +1,7 @@
 import './scss/app.scss';
-import { normalize } from 'react-style-reset';
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import ErrorMessage from "./components/errorMessage";
 
 export default function App() {
   const [aparatos, setAparatos] = useState([]);
@@ -10,10 +10,26 @@ export default function App() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors }
-  } = useForm();
+  } = useForm({
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
+    shouldFocusError: true    
+  })
+
+
+  const handleReset = () =>{
+    //console.log(Form.State.errors);
+    reset({
+      firstName: "",
+      lastName:"",
+      email:"",
+      org:"",
+      euResident:"",
+    })
+  };
+
 
   const onSubmit = async (data) => {
 
@@ -37,6 +53,9 @@ export default function App() {
     getData();
   }, []);
 
+
+
+
   return (
     <div className="App">
       <div className="container">
@@ -44,43 +63,57 @@ export default function App() {
         <p>*Indicates Required Field</p>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="errors">
+          {errors.firstName && <ErrorMessage name='First Name'/>} 
+          {errors.lastName && <ErrorMessage name='Last Name'/>}
+          {errors.email && <ErrorMessage name='Email'/>}
+          {errors.org && <ErrorMessage name='Organization'/>}
+          {errors.euResident && <ErrorMessage name='EU RESIDENT'/>}
+
+          </div>  
           <div className="row two-cols">
             <div className="formElement">
-              <label htmlFor="fname">FIRST NAME*</label>
+              <label htmlFor="firstName">FIRST NAME*</label>
               <input
-                {...register("fname", { required: true })}
+                className={errors.firstName ? 'error' : null}
+                {...register("firstName", { required: true } )}
                 type="text"
                 placeholder=""
+                nanme="First Name"
               />
             </div>
 
-
             <div className="formElement">
-              <label htmlFor="lname">LAST NAME*</label>
+              
+              <label htmlFor="lastName">LAST NAME*</label>
               <input
-                {...register("lname", { required: true })}
+                {...register("lastName", { required: true })}
                 type="text"
                 placeholder=""
+                className={errors.lastName ? 'error' : null}
               />
             </div>
           </div>
 
           <div className="row two-cols">
             <div className="formElement">
-              <label htmlFor="email">EMAIL ADDRES*</label>
+              <label htmlFor="email">EMAIL ADDRESS*</label>
               <input
                 {...register("email", { required: true })}
                 type="email"
                 placeholder=""
+                className={errors.email ? 'error' : null}
               />
             </div>
 
             <div className="formElement">
-              <label htmlFor="organization">ORGANIZATION*</label>
+              
+              <label htmlFor="org">ORGANIZATION*</label>
               <input
-                {...register("organization", { required: true })}
+                {...register("org", { required: true })}
                 type="text"
                 placeholder=""
+                className={errors.org ? 'error' : null}
               />
             </div>
           </div>
@@ -88,18 +121,18 @@ export default function App() {
 
           <div className="formElement">
             <label htmlFor="email">EU RESIDENT*</label>
-            <select {...register("tipo")}>
-              <option value="iluminacion">Iluminación</option>
-              <option value="electrodomesticos">Electrodomésticos</option>
-              <option value="enfriamiento">Enfriamiento</option>
-              <option value="calentamiento">Calentamiento de agua</option>
-              <option value="tecnologia">Tecnología y entretenimiento</option>
+            <select defaultValue="" {...register("euResident", { required: true })}>
+              <option  value="" disabled>- SELECT ONE - </option>
+              <option value="YES">YES</option>
+              <option value="NO">NO</option>
+              className={errors.euResident ? 'error' : null}
+              classNamePrefix="euResident"
             </select>
           </div>
 
           <div className="formElement">
             <input className="button bg-purple" type="submit" value="Submit" />
-            <input className="button bg-white" type="button" value="Reset" />
+            <input className="button bg-white" type="button" value="Reset" onClick={() => handleReset()} />
           </div>
         </form>
       </div>

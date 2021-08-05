@@ -1,4 +1,5 @@
 form {
+    margin-top: 50px;
     .formElement {
         margin-bottom: 30px;
     }
@@ -6,12 +7,54 @@ form {
         display: block;
         margin-bottom: 10px;
         width: 100%;
+        font-weight: 700;
+        letter-spacing: 1px;
     }
-    input {
+    input,
+    select {
         @extend %box-shadow;
+        font-size: 16px;
         border: 3px solid $color-default;
         display: block;
         height: 47px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 0 10px;
         width: 100%;
+        &:focus,
+        &:focus-visible,
+        &:hover {
+            border: 3px solid $color-default;
+        }
+    }
+    select {
+        width: auto;
+    }
+    .error {
+        border-color: $color-error;
+        background: lighten($color-error, 18%);
+        &:focus,
+        &:focus-visible,
+        &:hover {
+            border-color: $color-error;
+        }
+    }
+    span.error {
+        background: none;
+        color: red;
+        font-style: italic;
+        font-weight: 700;
+        margin-bottom: 10px;
+        display: inline-block;
+        &:after {
+            content: ",";
+            margin-right: 5px;
+            display: inline-block;
+        }
+        &:last-of-type {
+            &:after {
+                display: none;
+            }
+        }
     }
 }
