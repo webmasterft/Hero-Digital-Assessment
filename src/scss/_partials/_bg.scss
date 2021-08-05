@@ -1,0 +1,10 @@
+.bg {
+    &-white {
+        background: white;
+        color: black;
+    }
+    &-purple {
+        background: $color-1;
+        color: white;
+    }
+}

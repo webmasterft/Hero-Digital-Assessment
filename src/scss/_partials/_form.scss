@@ -1,0 +1,17 @@
+form {
+    .formElement {
+        margin-bottom: 30px;
+    }
+    label {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+    input {
+        @extend %box-shadow;
+        border: 3px solid $color-default;
+        display: block;
+        height: 47px;
+        width: 100%;
+    }
+}
