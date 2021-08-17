@@ -3,9 +3,15 @@ import React, {Fragment} from "react";
 const ErrorMessage = (props) => {
     return (
         <Fragment>
-            <span className='error'>
-                {props.name} is required
-            </span>
+            {props.name &&
+            <p className='error'>
+                {props.name} is required 
+            </p>}
+            {props.message &&
+            <p className='error'>
+                {props.message}
+            </p>
+            }
         </Fragment>
     )
 }

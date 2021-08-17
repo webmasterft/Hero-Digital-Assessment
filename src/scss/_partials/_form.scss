@@ -15,6 +15,7 @@ form {
         @extend %box-shadow;
         font-size: 16px;
         border: 3px solid $color-default;
+        box-sizing: border-box;
         display: block;
         height: 47px;
         letter-spacing: 1px;
@@ -29,6 +30,9 @@ form {
     }
     select {
         width: auto;
+        @include respond-to('md') {
+            width: 100%;
+        }
     }
     .error {
         border-color: $color-error;
@@ -39,21 +43,41 @@ form {
             border-color: $color-error;
         }
     }
-    span.error {
+    p.error {
         background: none;
         color: red;
         font-style: italic;
         font-weight: 700;
         margin-bottom: 10px;
-        display: inline-block;
-        &:after {
-            content: ",";
-            margin-right: 5px;
-            display: inline-block;
-        }
+        margin: 0;
+        padding: 3px;
         &:last-of-type {
-            &:after {
-                display: none;
+            margin-bottom: 20px
+        }
+    }
+    legend {
+        opacity: 0;
+        height: 0;
+    }
+    fieldset {
+        border: none;
+        margin: 0;
+        padding: 0;
+        &.checkboxes {
+            @extend %two-column;
+            label {
+                display: inline-block;
+                width: auto;
+                text-transform: uppercase;
+            }
+            input {
+                border: none;
+                box-shadow: none;
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                vertical-align: middle;
+                margin-right: 20px;
             }
         }
     }
